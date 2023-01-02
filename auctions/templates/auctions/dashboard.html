@@ -1,0 +1,86 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+    <h3>Welcome back, {{ user | capfirst }}</h3>
+    <h1>Won🎉</h1>
+    {% for winning in winnings %}
+    <div class="card border-info mb-3 " style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="../media/{{ winning.listing.url }}" class="img-fluid rounded-start" alt="{{listing.title}}" width="180" height="186">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'listing' winning.listing.id %}">{{winning.listing.title}}</a></h5>
+              <p class="card-text">{{listing.description}}</p>
+              <p class="card-text"><small class="text-muted">{{listing.price}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <li>No winners</li>
+    {% endfor %}
+
+    <h1>My Bids</h1>
+    {% for bid in bids %}
+    <div class="card border-info mb-3 " style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="../media/{{ bid.listing.url }}" class="img-fluid rounded-start" alt="{{bid.listing.title}}" width="180" height="186">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'listing' bid.listing.id %}">{{bid.listing.title}}</a></h5>
+              <p class="card-text">{{bid.listing.description}}</p>
+              <p class="card-text"><small class="text-muted">{{bid.listing.price}}</small></p>
+              <p class="card-text"><small class="text-muted">{{bid.price}}</small></p>
+              <a href="{% url 'unbid' bid.id %}"><button type="button" class="btn btn-outline-dark btn-sm">Unbid</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <li>No bids yet</li>
+    {% endfor %}
+    
+    <h1>My Active Listings</h1>
+    {% for listing in active_listings %}
+    <div class="card border-info mb-3 " style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="../media/{{ listing.url }}" class="img-fluid rounded-start" alt="{{listing.title}}" width="180" height="186">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'listing' listing.id %}">{{listing.title}}</a></h5>
+              <p class="card-text">{{listing.description}}</p>
+              <p class="card-text"><small class="text-muted">{{listing.price}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <li>No active listings</li>
+    {% endfor %}
+
+    <h1>Closed Listing</h1>
+    {% for listing, winner in closed_listings.items %}
+    <div class="card border-info mb-3 " style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src= "../media/{{ listing.url }}" class="img-fluid rounded-start" alt="{{listing.title}}" width="180" height="186">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'listing' listing.id %}">{{listing.title}}</a></h5>
+              <p class="card-text">{{listing.description}}</p>
+              <p class="card-text"><small class="text-muted">{{listing.price}}</small></p>
+              <h3>Winner: <a href="{% url 'profile' winner %}">{{ winner }}</a></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <li>No closed listing</li>
+    {% endfor %}
+{% endblock %}

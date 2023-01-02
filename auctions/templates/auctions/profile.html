@@ -1,0 +1,12 @@
+{% extends "auctions/layout.html" %}
+{% block body %}
+    {% if user %}
+        <ul>
+            <h2><li>Name: {{user}} </li></h2>
+            <li>Address: </li>
+            <li>Contact:</li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+
